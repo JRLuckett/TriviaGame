@@ -1,17 +1,17 @@
 body {
-  background-image: url('http://media.nbcphiladelphia.com/images/1200*675/Snow-Flurries-Generic.jpg');
+  background-image: url('https://media.giphy.com/media/12RAfAXFH8g5LG/giphy.gif');
   background-repeat: no-repeat;
   background-size: 110%;
 }
 main {
   width: 60%;
-  height: 500px;
+  height: 600px;
   margin: 0 auto;
-  background-color: rgba(100,149,237, .7);
   text-align: center;
   border-radius: 10px;
 }
 h1 {
+  margin: 20px 0 5px 0;
   font-size: 50px;
   font-family: 'Bungee Inline', cursive;
   color: navy;
@@ -23,8 +23,8 @@ section {
 }
 #start {
   padding-top: 25px;
-  margin: 0 auto;
-  width: 80px;
+  margin: 200px auto;
+  width: 140px;
   height: 45px;
   background-color: skyblue;
   border: solid navy 2px;
@@ -41,12 +41,14 @@ li {
   margin: 10px;
 }
 .question {
+  margin: 5px auto;
   color: white;
-  width: 200px;
+  width: 240px;
   height: 60px;
   background-color: navy;
   border: solid navy 2px;
   border-radius: 5px;
+  padding: 25px 0 0 0;
 }
 .question:hover {
   background-color: skyblue;
@@ -58,5 +60,25 @@ li {
   margin: 5px;
 }
 #images{
-  
+  width:600px;
+  height: 400px;
+  margin: 0 auto;
+}
+img{
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+}
+#start-over{
+  margin: 5px auto;
+  color: white;
+  width: 240px;
+  height: 60px;
+  background-color: navy;
+  border: solid navy 2px;
+  border-radius: 5px;
+  padding: 25px 0 0 0;
+}
+#start-over:hover{
+  background-color: skyblue;
 }

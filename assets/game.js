@@ -4,7 +4,7 @@ var skiTheme = [{
     choices: ["Aspen Mountain", "Mt. Baker", "Park City", "Whistler"],
     wrong: ["Aspen Mountain", "Park City", "Whistler"],
     right: "Mt. Baker",
-    image: "https://s-media-cache-ak0.pinimg.com/564x/53/9f/63/539f63fe5d79c3b9cc010407d6e554f8.jpg"
+    image: "http://www.snow-forecast.com/system/images/18281/large/Mount-Baker.jpg?1334933189"
   }, {
     question: "Which ski areas has the most skiable acreage?",
     choices: ["Revelstoke", "Big Sky", "Whistler", "Vail"],
@@ -16,7 +16,7 @@ var skiTheme = [{
     choices: ["Revelstoke","Jackson Hole", "Beaver Creek", "Telluride"],
     wrong: ["Jackson Hole", "Beaver Creek", "Telluride"],
     right: "Revelstoke",
-    image: "http://www.luxuryskitrips.com/images/eagle-pass600/9-revelstoke-mountain-from-heli.jpg"
+    image: "http://cdn2.hubspot.net/hub/52978/file-284615529-jpg/images/revelstoke-peaks.jpg?t=1448924285006"
   }, {
     question: "Which ski area has the best backcountry access?",
     choices: ["Snow Bird", "Telluride", "Whistler", "Jackson Hole"],
@@ -46,7 +46,7 @@ var skiTheme = [{
     choices: ["Vancouver", "Salt Lake", "Denver", "Seattle"],
     wrong: ["Vancouver", "Salt Lake", "Seattle"],
     right: "Denver",
-    image: "http://us.123rf.com/450wm/tvirbickis/tvirbickis1302/tvirbickis130200809/18144975-denver-colorado-skyline-at-sunrise-day-after-winter-snow-storm-from-city-park-and-denver-museum-of-s.jpg?ver=6" 
+    image: "http://media.thedenverchannel.com/photo/2012/10/07/Snow-Covered-Mount-Evans-With-State-Capital-Dome.-15798020_260223_ver1.0_640_480.jpg" 
   }
 ];
 
@@ -54,16 +54,15 @@ var answeredCorrect = 0;
 var answeredWrong = 0;
 var didNotAnswer = 0;
 var indexQ = 0;
-var answer = "";
+var answer;
 var currentQuestion = skiTheme[indexQ].question;
-
-$(document).ready(function () {
+var timeSet;
+$(document).ready(function() {
   
-  var counter = 30;
+  var counter = 10;
 //********TIME COUNT FUNCTION********//
   var countDown = function countDown(){
-    setInterval(timer, 1000);
-    console.log(counter);
+    timeSet = setInterval(timer, 1000);
   };
 //conditions for timer 
   var timer = function timer(){
@@ -72,34 +71,56 @@ $(document).ready(function () {
       counter--;
     }
     else {
+      $('#question').empty();
+      $('#time-remaining').html('TIME IS UP!');
+      $('#choices').html('<h4 id = "place">'+skiTheme[indexQ].right+'</h4><div id="images"><img src ='+skiTheme[indexQ].image+' alt ='+skiTheme[indexQ].right+'></div>');
+
       stopCountDown();
-      $('#time-remaining').html("TIME IS UP");
+
+      didNotAnswer++;
+
+      setTimeout(timesUp, 2000);
     }
   };
 //reset amount for count down 
   var reset = function reset(){
-    counter = 30;
+    counter = 10;
   };
 //clear count down
   var stopCountDown = function stopCountDown(){
-    clearInterval(countDown);
+    clearInterval(timeSet);
     reset();
+  };
+//restart game
+   var startOver = function startOver(){
+    $('#choices').empty();
+    $('#question').empty();
+    $('#time-remaining').empty();
+    answeredCorrect = 0; 
+    answeredWrong = 0;
+    didNotAnswer = 0;
+    indexQ = 0;
+    questions();
   };
   // $('#start').on('click', countDown());
 //********START BUTTON FUNCTION********//
   $('#start').on('click', function (){
      $('#start').css('display' , 'none');
      questions();
-     countDown();
-
+  });    
+//restart trivia game 
+  $('#start-over').on('click', function(){
+    startOver();
+    console.log('hey');
   });
 //question and choices printed to html 
   var questions = function questions(){
-  currentQuestion = skiTheme[indexQ].question;
-  $('#question').text(currentQuestion);
-  $('#choice').empty();
-  $('#choices').html('<ul><li><a class = "question">'+skiTheme[indexQ].choices[0]+'</a></li><li><a class = "question">'+skiTheme[indexQ].choices[1]+'</a></li><li><a class = "question">'+skiTheme[indexQ].choices[2]+'</a></li><li><a class = "question">'+skiTheme[indexQ].choices[3]+'</a></li></ul>');
-  clicked();
+    currentQuestion = skiTheme[indexQ].question;
+    $('#question').text(currentQuestion);
+    $('#choice').empty();
+    $('#choices').html('<ul><li class = "question"><a>'+skiTheme[indexQ].choices[0]+'</a></li><li class = "question"><a >'+skiTheme[indexQ].choices[1]+'</a></li><li class = "question"><a>'+skiTheme[indexQ].choices[2]+'</a></li><li class = "question"><a>'+skiTheme[indexQ].choices[3]+'</a></li></ul>');
+    clicked();
+    countDown();
   };
 //event listner 
   var clicked = function clicked(){
@@ -118,24 +139,11 @@ $(document).ready(function () {
           $('#choices').html('<h2 id = "right-wrong">YUP!</h2><h4 id = "place">'+skiTheme[indexQ].right+'</h4><div id="images"><img src ='+skiTheme[indexQ].image+' alt ='+skiTheme[indexQ].right+'></div>');
 
           stopCountDown();
-          console.log(counter);
+
           answeredCorrect++;
-          console.log(answeredCorrect);
 
-          setTimeout(goodAnswer, 5000);
+          setTimeout(goodAnswer, 2000);
           
-        } 
-
-        else if (counter == 0){
-          $('#question').empty();
-          $('#time-remaining').empty();
-          $('#choices').html('<h2 id = "right-wrong">TIMES UP!</h2><h4 id = "place">'+skiTheme[indexQ].right+'</h4><div id="images"><img src ='+skiTheme[indexQ].image+' alt ='+skiTheme[indexQ].right+'></div>');
-
-
-          didNotAnswer++;
-
-          setTimeout(timesUp, 5000);
-
         }
 
         else {
@@ -143,9 +151,11 @@ $(document).ready(function () {
           $('#time-remaining').empty();
           $('#choices').html('<h2 id = "right-wrong">NOPE!</h2><h4 id = "place">'+skiTheme[indexQ].right+'</h4><div id="images"><img src ='+skiTheme[indexQ].image+' alt ='+skiTheme[indexQ].right+'></div>');
 
+          stopCountDown();
+
           answeredWrong++;
 
-          setTimeout(badAnswer, 5000); 
+          setTimeout(badAnswer, 2000); 
           
         }
   };
@@ -157,7 +167,6 @@ $(document).ready(function () {
       stats();
     } else {
       questions();
-      countDown();
     };
   };
 //times up output]
@@ -168,25 +177,23 @@ $(document).ready(function () {
       stats();
     } else {
       questions();
-      countDown();
     };
   };
 //right answer output 
   var goodAnswer = function goodAnswer(){
     $('#choices').empty();
-    console.log(counter);
+
     indexQ++;
-    console.log(indexQ);
+
     if(indexQ > skiTheme.length-1){
       stats();
     } else {
       questions();
-      console.log(currentQuestion);
-      countDown();
+
     };
   };
 //print out of player stats 
   var stats = function stats(){
-    $('#choices').html('<ul><li class = "question">Answered Correct: '+answeredCorrect+'</li><li class = "question">Did Not Answer: '+didNotAnswer+'</li><li class = "question">Answered Wrong: '+answeredWrong+'</li></ul>');
+    $('#choices').html('<ul><li class = "question">Answered Correct: '+answeredCorrect+'</li><li class = "question">Did Not Answer: '+didNotAnswer+'</li><li class = "question">Answered Wrong: '+answeredWrong+'</li><li id = "start-over">Start Over</li></ul>');
   };
 });
