@@ -92,7 +92,7 @@ $(document).ready(function() {
     reset();
   };
 //restart game
-   var startOver = function startOver(){
+   function startOver(){
     $('#choices').empty();
     $('#question').empty();
     $('#time-remaining').empty();
