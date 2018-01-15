@@ -1,4 +1,4 @@
-//Content for Trivia 
+//Content for Trivia
 var skiTheme = [{
     question: "Which ski area on average gets the most snow?",
     choices: ["Aspen Mountain", "Mt. Baker", "Park City", "Whistler"],
@@ -16,13 +16,13 @@ var skiTheme = [{
     choices: ["Revelstoke","Jackson Hole", "Beaver Creek", "Telluride"],
     wrong: ["Jackson Hole", "Beaver Creek", "Telluride"],
     right: "Revelstoke",
-    image: "http://cdn2.hubspot.net/hub/52978/file-284615529-jpg/images/revelstoke-peaks.jpg?t=1448924285006"
+    image: "http://www.powderhounds.com/site/DefaultSite/filesystem/images/Canada/Revelstoke/Overview/Revelstoke-08.jpg"
   }, {
     question: "Which ski area has the best backcountry access?",
     choices: ["Snow Bird", "Telluride", "Whistler", "Jackson Hole"],
     wrong: ["Snow Bird", "Telluride", "Taos"],
     right: "Jackson Hole",
-    image: "http://gatlinburg-real-estate-for-sale.com/wp-content/uploads/2014/03/Ski-Conditions-are-Top-Reason-to-Buy-Jackson-Hole-Wyoming-Real-Estate-.png"
+    image: "http://abodejacksonhole-83d6.kxcdn.com/wp-content/uploads/2015/03/things1.jpg"
   }, {
     question: "Which ski area has the most reasonable day pass?",
     choices: ["Breckenridge", "Taos", "Mt Baker", "Alta"],
@@ -34,7 +34,7 @@ var skiTheme = [{
     choices: ["Killington", "Aspen", "Whistler", "Tahoe"],
     wrong: ["Killington", "Whistler", "Tahoe"],
     right: "Aspen",
-    image: "https://www.thelittlenell.com/~/media/Images/3-0,Aspen,Experience/3-1,Sights,and,Culture/sights-culture-thn.ashx?h=545&la=en&w=648"
+    image: "https://www.thelittlenell.com/~/media/thelittlenell/images/3-0-aspen-experience/3-1-sights-and-culture/sights-culture-thn.ashx?h=545&la=en&w=648"
   }, {
     question: "Which ski area has the best powder?",
     choices: ["Snowbird", "Taos", "Vail", "Telluride"],
@@ -46,11 +46,11 @@ var skiTheme = [{
     choices: ["Vancouver", "Salt Lake", "Denver", "Seattle"],
     wrong: ["Vancouver", "Salt Lake", "Seattle"],
     right: "Denver",
-    image: "http://media.thedenverchannel.com/photo/2012/10/07/Snow-Covered-Mount-Evans-With-State-Capital-Dome.-15798020_260223_ver1.0_640_480.jpg" 
+    image: "http://media.thedenverchannel.com/photo/2012/10/07/Snow-Covered-Mount-Evans-With-State-Capital-Dome.-15798020_260223_ver1.0_640_480.jpg"
   }
 ];
 
-var answeredCorrect = 0; 
+var answeredCorrect = 0;
 var answeredWrong = 0;
 var didNotAnswer = 0;
 var indexQ = 0;
@@ -58,13 +58,13 @@ var answer;
 var currentQuestion = skiTheme[indexQ].question;
 var timeSet;
 $(document).ready(function() {
-  
+
   var counter = 10;
 //********TIME COUNT FUNCTION********//
   var countDown = function countDown(){
     timeSet = setInterval(timer, 1000);
   };
-//conditions for timer 
+//conditions for timer
   var timer = function timer(){
     if(counter > 0){
      $('#time-remaining').html(counter);
@@ -82,7 +82,7 @@ $(document).ready(function() {
       setTimeout(timesUp, 2000);
     }
   };
-//reset amount for count down 
+//reset amount for count down
   var reset = function reset(){
     counter = 10;
   };
@@ -96,7 +96,7 @@ $(document).ready(function() {
     $('#choices').empty();
     $('#question').empty();
     $('#time-remaining').empty();
-    answeredCorrect = 0; 
+    answeredCorrect = 0;
     answeredWrong = 0;
     didNotAnswer = 0;
     indexQ = 0;
@@ -107,13 +107,13 @@ $(document).ready(function() {
   $('#start').on('click', function (){
      $('#start').css('display' , 'none');
      questions();
-  });    
-//restart trivia game 
-  $('#start-over').on('click', function(){
-    startOver();
-    console.log('hey');
   });
-//question and choices printed to html 
+//restart trivia game
+  $(document).on('click', '#start-over', function(){
+    console.log('hey');
+    startOver();
+  });
+//question and choices printed to html
   var questions = function questions(){
     currentQuestion = skiTheme[indexQ].question;
     $('#question').text(currentQuestion);
@@ -122,7 +122,7 @@ $(document).ready(function() {
     clicked();
     countDown();
   };
-//event listner 
+//event listner
   var clicked = function clicked(){
     $('.question').on('click', function(){
       clearInterval(countDown);
@@ -130,7 +130,7 @@ $(document).ready(function() {
       picked(this.textContent);
     })
   };
-//answer checker 
+//answer checker
   var picked = function picked(clickedOn){
 
         if (clickedOn === skiTheme[indexQ].right){
@@ -143,7 +143,7 @@ $(document).ready(function() {
           answeredCorrect++;
 
           setTimeout(goodAnswer, 2000);
-          
+
         }
 
         else {
@@ -155,8 +155,8 @@ $(document).ready(function() {
 
           answeredWrong++;
 
-          setTimeout(badAnswer, 2000); 
-          
+          setTimeout(badAnswer, 2000);
+
         }
   };
 //wrong answer output
@@ -179,7 +179,7 @@ $(document).ready(function() {
       questions();
     };
   };
-//right answer output 
+//right answer output
   var goodAnswer = function goodAnswer(){
     $('#choices').empty();
 
@@ -192,7 +192,7 @@ $(document).ready(function() {
 
     };
   };
-//print out of player stats 
+//print out of player stats
   var stats = function stats(){
     $('#choices').html('<ul><li class = "question">Answered Correct: '+answeredCorrect+'</li><li class = "question">Did Not Answer: '+didNotAnswer+'</li><li class = "question">Answered Wrong: '+answeredWrong+'</li><li id = "start-over">Start Over</li></ul>');
   };
